@@ -1,6 +1,8 @@
 const fs = require('fs');
 
-
+// const path = require('path')
+// Debugging wont work until the path is correct - can use "path" module
+// Put path.resolve(__dirname,'input.txt') after the createReadStream
 const readStream = fs.createReadStream('./input.txt', { encoding: 'utf-8' });
 const writeStream = fs.createWriteStream('./output.txt', { encoding: 'utf-8' });
 
