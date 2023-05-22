@@ -2,6 +2,9 @@ const express = require('express');
 const server = express();
 const path = require('path');
 const handlebars = require('express-handlebars');
+
+const { addCat, getCats } = require('./cats');
+
 // Add handlebars to express !
 server.engine('hbs', handlebars.engine({ extname: 'hbs' }));
 server.set('view engine', 'hbs'); // Set view engine-a da e raven na 'handlebars' it looks for the folder "views" in the root folder
@@ -59,31 +62,14 @@ server.get('/about', (req, res) => {
 });
 
 server.get('/cats', (req, res) => {
-  res.status(200).send(`
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <title>Document</title>
-</head>
-<body>
-  <form method="post">  
-  <label for ="name">Name</label>
-  <input type="text" id="name" name="name"></input>
-  <label for ="age">Age</label>
-  <input type="number" id="age" name="age"></input>
-  <input type="submit" value="Create"></input>
-  </form>
-  </body>
-</html>`);
+  const cats = getCats();
+
+  res.status(200).render('cats', cats);
 });
 
 server.post('/cats', (req, res) => {
-  console.log(req.body);
-  res.status(201).send('Cat has beed created!');
+  addCat(req.body.name, Number(req.body.age));
+  res.redirect('/cats');
 });
 
 // This is how we get the cat by its ID with the params. Which is /cats/2 with the validation if its Number

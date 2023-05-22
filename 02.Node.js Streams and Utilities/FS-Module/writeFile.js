@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { text } = require('stream/consumers');
+
 
 const data = 'Az shte UCHA I SHTE USPEQ MAMKA MU';
 
