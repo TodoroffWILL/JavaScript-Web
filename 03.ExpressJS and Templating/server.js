@@ -1,6 +1,16 @@
 const express = require('express');
-const path = require('path');
 const server = express();
+const path = require('path');
+const handlebars = require('express-handlebars');
+// Add handlebars to express !
+server.engine('hbs', handlebars.engine({ extname: 'hbs' }));
+server.set('view engine', 'hbs'); // Set view engine-a da e raven na 'handlebars' it looks for the folder "views" in the root folder
+
+//Add third party middleware - this is how we get the formData and getting easily from the input fields
+const bodyParser = express.urlencoded({ extended: false });
+server.use(bodyParser);
+
+server.use(express.static('public')); // Коя е директорията в която да търси статични файлове в Public папката като цсс-а
 
 //Add middlewares - be careful of the line where they are.
 // If they are on the top of the code they become global.
@@ -41,14 +51,38 @@ server.get('/', (req, res) => {
   //   res.end();
   // Automatically recognizing the type of data send,write it and ending it.
 
-  res.status(200).send({ name: 'Pesho' });
+  res.render('home'); // Подава се името на "view-to v handlebar", изисква по default Layout-маин теплейт който не се променя
+});
+
+server.get('/about', (req, res) => {
+  res.render('about');
 });
 
 server.get('/cats', (req, res) => {
-  res.status(200).send('Hello from Cats');
+  res.status(200).send(`
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+  <form method="post">  
+  <label for ="name">Name</label>
+  <input type="text" id="name" name="name"></input>
+  <label for ="age">Age</label>
+  <input type="number" id="age" name="age"></input>
+  <input type="submit" value="Create"></input>
+  </form>
+  </body>
+</html>`);
 });
 
 server.post('/cats', (req, res) => {
+  console.log(req.body);
   res.status(201).send('Cat has beed created!');
 });
 
