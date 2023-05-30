@@ -1,0 +1,15 @@
+{
+  "name": "05.mongodb-mongoose",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mongooseDemo.js",
+  "scripts": {
+    "start": "node ./mongooseDemo.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^7.2.2"
+  }
+}
