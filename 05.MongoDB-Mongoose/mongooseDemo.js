@@ -44,6 +44,8 @@ async function connectDb() {
   // Method 2
   // const cats = await Cat.find().where('name').ne('Doncho')
 
-  console.log(found);
+  const brokenCat = await Cat.create({ name: 'As', age: 20, breed: 20 });
+
+  console.log(brokenCat);
 }
 connectDb();

@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const catSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
-    minLenght: 3,
+    required: [true, 'Message can be here'],
+    minLength: [3, 'Custom Min length message'],
     maxLength: 20,
   }, // Specificly validators
   age: Number,
