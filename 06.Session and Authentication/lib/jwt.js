@@ -1,36 +1,11 @@
+const util = require('util');
 const jwt = require('jsonwebtoken');
 
-const sign = (payload, secret, options) => {
-  const promise = new Promise((resolve, reject) => {
-    jwt.sign(payload, secret, options, (err, result) => {
-      if (err) {
-        return reject(err);
-      }
-
-      resolve(result);
-    });
-  });
-
-  return promise;
-};
-
-const verify = (token, secret) => {
-  const promise = new Promise((resolve, reject) => {
-    jwt.verify(token, secret, (err, result) => {
-      if (err) {
-        return reject(err);
-      }
-
-      resolve(result);
-    });
-  });
-
-  return promise;
-};
+// Here we are turning the jwt to asynchronous with the util package
 
 const jwtPromises = {
-  sign,
-  verify,
+  sign: util.promisify(jwt.sign),
+  verify: util.promisify(jwt.verify),
 };
 
 module.exports = jwtPromises;
