@@ -14,6 +14,8 @@ router.post('/', (req, res) => {
   res.send('Create User');
 });
 
+router.use(logger);
+
 router // This is how we chain routes. So we give the route and chaining the rest of them.
   .route('/:id')
   .get((req, res) => {
@@ -36,5 +38,10 @@ router.param('id', (req, res, next, id) => {
   req.user = users[id];
   next();
 });
+
+function logger(req, res, next) {
+  console.log(req.originalUrl);
+  next();
+}
 
 module.exports = router;
