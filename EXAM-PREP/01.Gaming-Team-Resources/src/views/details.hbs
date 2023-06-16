@@ -23,12 +23,17 @@
         {{/if}}
         {{#if isAuthenticated}}
           {{#unless isOwner}}
-            <!-- Logged in user who has not yet buy this game code-->
-            <a href='/details/{{game._id}}/buy' class='btn-buy'>Buy</a>
+            {{#unless hasBought}}
+              <!-- Logged in user who has not yet buy this game code-->
+              <a href='/details/{{game._id}}/buy' class='btn-buy'>Buy</a>
+            {{else}}
+              <p class='buy-message'>You have already bought this game</p>
+            {{/unless}}
           {{/unless}}
         {{/if}}
+
         <!-- Logged in user who has already buy this game code-->
-        <!-- <p class="buy-message">You have already bought this game</p> -->
+        <!--  -->
       </div>
     </div>
   </section>

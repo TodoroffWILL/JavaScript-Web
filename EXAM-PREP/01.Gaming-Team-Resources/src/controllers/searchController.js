@@ -16,7 +16,17 @@ router
       const foundGames = await getGameBySearch(name, platform);
       foundGames.search = name;
       foundGames.searchPlatform = platform;
-      res.render('search', { foundGames });
+
+      let notFoundGames;
+      if (foundGames.length === 0) {
+        notFoundGames = true;
+      } else {
+        notFoundGames = false;
+      }
+
+      console.log(foundGames.length);
+      console.log(notFoundGames);
+      res.render('search', { foundGames, notFoundGames });
     } catch (err) {
       console.error({ error: getErrorMessage(err) });
       res.redirect('/search');
