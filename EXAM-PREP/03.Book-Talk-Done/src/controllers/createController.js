@@ -9,7 +9,7 @@ router
   .get((req, res) => {
     res.render('create');
   })
-  .post(async (req, res) => {
+  .post(isAuthz,async (req, res) => {
     const bookData = req.body;
     const userId = req.user._id;
     try {
