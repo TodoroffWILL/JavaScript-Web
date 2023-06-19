@@ -29,3 +29,11 @@ exports.isAuthz = (req, res, next) => {
   }
   next();
 };
+// For User: if u trying to go to /login and ur user
+
+exports.isUserAuth = (req, res, next) => {
+  if (req.user) {
+      res.redirect('/');
+  }
+  next();
+};
